@@ -1,4 +1,4 @@
-name: Sync iptv4.m3u to mytv
+name: Sync all files to mytv
 
 on:
   schedule:
@@ -22,15 +22,15 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
-      - name: Copy iptv4.m3u to B repo
+      - name: Copy all files from iptv/tv/ to B repo root
         run: |
-          cp iptv/tv/iptv4.m3u target-repo/
+          cp -r iptv/tv/* target-repo/
 
       - name: Commit and push changes
         run: |
           cd target-repo
           git add .
-          git commit -m "Auto sync iptv4.m3u from iptv repo" || echo "No changes to commit"
+          git commit -m "Auto sync all files from iptv/tv/" || echo "No changes to commit"
           git push https://$PAT@github.com/lyiehf/mytv.git
         env:
           PAT: ${{ secrets.PAT }}
