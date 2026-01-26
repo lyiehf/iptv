@@ -17,10 +17,12 @@ jobs:
 
       - name: Clone B repo (mytv)
         run: |
-          git clone https://github.com/lyiehf/mytv.git target-repo
+          git clone https://$PAT@github.com/lyiehf/mytv.git target-repo
           cd target-repo
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
+        env:
+          PAT: ${{ secrets.PAT }}
 
       - name: Copy all files from iptv/tv/ to B repo root
         run: |
